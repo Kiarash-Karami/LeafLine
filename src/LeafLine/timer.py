@@ -18,5 +18,5 @@ def start_timer(duration):
 
     actual_duration = int(time.time() - start_time)
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("Time's up! Your tree is fully grown.")
+    print("Time's up! Your tree is fully grown.🎉")
     return actual_duration
