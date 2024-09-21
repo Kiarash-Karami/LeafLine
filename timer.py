@@ -1,32 +1,22 @@
 import time
+import os
 
-def countdown_timer(minutes):
-    """
-    A countdown timer that takes the specified number of minutes and counts down to zero.
+def start_timer(duration):
+    start_time = time.time()
+    while True:
+        elapsed_time = time.time() - start_time
+        remaining_time = max(duration - elapsed_time, 0)
+        progress = min(elapsed_time / duration, 1)
 
-    Args:
-    minutes (int): The number of minutes for the countdown timer.
-    """
-    # Convert minutes to total seconds
-    total_time = minutes * 60
-    elapsed_time = 0
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(f"\rLeafLine 🌿 | Timer: {int(remaining_time)}", end="")
 
-    # Loop until the elapsed time exceeds the total time
-    while elapsed_time <= total_time:
-        # Calculate remaining time
-        remaining_time = total_time - elapsed_time
-        # Convert remaining time to minutes and seconds
-        mins, secs = divmod(remaining_time, 60)
-        # Format the timer string
-        timer = '{:02d}:{:02d}'.format(mins, secs)
+        if remaining_time <= 0:
+            break
 
-        # Print the timer, keeping the output on the same line
-        print(f"\rStay Focused 🌿 | Timer: {timer}", end="")
-
-        # Wait for one second
         time.sleep(1)
-        # Increment the elapsed time by one second
-        elapsed_time += 1
 
-    # Print a message when the timer reaches zero
-    print("\rStay Focused 🌿 | Timer: 00:00 | Time's up! 🎉")
+    actual_duration = int(time.time() - start_time)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Time's up! Your tree is fully grown.")
+    return actual_duration

@@ -1,13 +1,21 @@
-from timer import countdown_timer
+from timer import start_timer
+from db import init_db, add_tree, get_tree_count, get_total_focus_time
 
-# Display a welcome message to the user
-print("Welcome to LeafLine 🌿!")
+def display_forest_stats():
+    tree_count = get_tree_count()
+    total_focus_time = get_total_focus_time()
+    print(f"\nYour forest has {tree_count} trees!")
+    print(f"Total focus time: {total_focus_time // 60} minutes")
 
-# Prompt the user to enter the duration of their focus session in minutes
-minutes = int(input("How long would you like to focus today? Please enter the time in minutes: "))
+def main():
+    init_db()
+    print("Welcome to the Forest Productivity Timer!")
+    display_forest_stats()
+    minutes = int(input("\nEnter the number of minutes for your focus session: "))
+    start_timer(minutes * 60)
+    add_tree(minutes * 60)
+    print("\nGreat job! A new tree has been added to your forest.")
+    display_forest_stats()
 
-# Inform the user that their focus session is starting
-print("Awesome! Your focus session is starting now. Let's grow your productivity! 🌱")
-
-# Call the countdown_timer function with the user-provided duration
-countdown_timer(minutes)
+if __name__ == "__main__":
+    main()
